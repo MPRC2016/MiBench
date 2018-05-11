@@ -121,6 +121,7 @@ double Time_F(int s);
 double Time_F();
 #endif
 
+#undef SIGALRM
 #ifdef SIGALRM
 #if defined(__STDC__) || defined(sgi) || defined(_AIX)
 #define SIGRETTYPE void
