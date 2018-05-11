@@ -33,21 +33,37 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
-#include <err.h>
 #include <errno.h>
 #include <fcntl.h>
 #include <unistd.h>
 
-#include <sys/socket.h>
 #include <sys/time.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 
-#include <rpc/rpc.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-
 #include "patricia.h"
+
+#ifndef _BYTE_ORDER
+#error "You need to define a byte order."
+#endif
+
+#if _BYTE_ORDER == _LITTLE_ENDIAN
+static inline uint32_t
+htonl(uint32_t x)
+{
+	return (x<<24) | ((x<<8) & 0x00ff0000)
+		| ((x>>8) & 0x0000ff00) | (x>>24);
+}
+#else
+#define htonl(x) (x)
+#endif
+
+/* Internet address.  */
+typedef uint32_t in_addr_t;
+struct in_addr
+{
+	in_addr_t s_addr;
+};
 
 struct MyNode {
 	int foo;
