@@ -291,7 +291,7 @@ LIBLOCA = locale
 CHARIN	= 1
 CHAROUT	= 0
 
-USELOC	= 1
+USELOC	= 0
 LOC_FR	= fr
 LOC_DE	= de
 
@@ -302,7 +302,7 @@ ZLIB		=
 ZLIBPATH	=
 
 CC	= gcc
-LD	= gcc -static
+LD	= $(CC) -static
 
 RCOPY	= cp -r
 
